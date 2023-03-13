@@ -20,7 +20,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
     // save an employee
-    public void saveEmployee(Employee employee) {
+    public void addEmployee(Employee employee) {
         //save employee
         employeeRepository.save(employee);
     }

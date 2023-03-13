@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- This is for using Thymeleaf -->
+<html  lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management System</title>
+  <!-- Compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<!--  <script-->
+<!--          src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+</head>
+<body>
+<div class="container mt-3 px-0">
+  <h3>Employee List</h3>
+  <!-- The link which sends GET request to "/showNewEmployeeForm"  -->
+  <a th:href="@{/showAddEmployee}"
+     class="btn btn-primary btn-sm mb-3">Add new employee</a>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- You can access model attributes which are added in a Controller(EmployeeController.java) with ${attributeName}.
+         In this case, it is "${listEmployees}".
+         To show all employees data in this table, you need to use "th:each" in the thymeleaf template and iterate the employee of listEmployees -->
+    <tr th:each="employee: ${getAllEmployee}">
+      <td th:text="${employee.firstName}"></td>
+      <td th:text="${employee.lastName}"></td>
+      <td th:text="${employee.email}"></td>
+      <td>
+        <!-- The link which sends GET request to "/showFormForUpdate/{id}" (id is employee.id) -->
+        <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}"
+           class="waves-effect waves-light btn">Update</a>
+      </td>
+      <td>
+        <!-- The link which sends GET request to "/delete/{id}" (id is employee.id)  -->
+        <a th:href="@{/delete/{id}(id=${employee.id})}"
+           class="waves-effect waves-light btn red litghten-2">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
